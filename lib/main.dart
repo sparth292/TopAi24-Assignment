@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'login_screen.dart';
 import 'home_screen.dart';
 import 'splash_screen.dart';
@@ -10,10 +11,11 @@ import 'logout_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await Firebase.initializeApp();
   await Supabase.initialize(
-    url: 'https://xacdjvugxofsokgjbzem.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhhY2RqdnVneG9mc29rZ2piemVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNTQxMDgsImV4cCI6MjA2MTgzMDEwOH0.2iG1qNjs2t_3dG0TJQrnkK6LRYIggB6uni6_E2iQE9o',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
   print('Supabase initialized!');
 
